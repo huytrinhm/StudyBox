@@ -1,0 +1,133 @@
+﻿<Page x:Class="StudyBox.Dictionary"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudyBox"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="720"
+      Title="Sổ kiến thức"
+      x:Name="dic"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      
+      TextOptions.TextRenderingMode="Auto" FontFamily="{DynamicResource MaterialDesignFont}"
+>
+
+    <Grid>
+        <materialDesign:DialogHost Identifier="Set">
+            <materialDesign:DialogHost Identifier="erunDialog" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                <materialDesign:DialogHost Identifier="runDialog" x:Name="Dialog" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                    <materialDesign:DialogHost Identifier="runDialog2" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                        <materialDesign:DialogHost Identifier="runDialog3" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="160"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" UniformCornerRadius="10" Margin="5">
+                                        <materialDesign:Card.Background>
+                                            <SolidColorBrush Color="DarkSlateGray" Opacity="0.5"/>
+                                        </materialDesign:Card.Background>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Button Click="Button_Click_1" Margin="5" HorizontalContentAlignment="Stretch">
+                                                <Grid HorizontalAlignment="Stretch">
+                                                    <TextBlock VerticalAlignment="Center" Text="Thêm" FontSize="20" HorizontalAlignment="Left"/>
+                                                    <materialDesign:PackIcon VerticalAlignment="Center" Width="30" Height="30" Kind="Plus" HorizontalAlignment="Right"/>
+                                                </Grid>
+                                            </Button>
+                                            <ScrollViewer Grid.Row="1" Margin="5" VerticalScrollBarVisibility="Auto">
+                                                <ScrollViewer.Resources>
+                                                    <Style x:Key="dbclst" TargetType="ListViewItem" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                                        <EventSetter Event="MouseLeftButtonUp" Handler="HandleDoubleClick"/>
+                                                    </Style>
+                                                </ScrollViewer.Resources>
+                                                <ListView SelectionMode="Single" Foreground="White" ItemContainerStyle="{StaticResource dbclst}" x:Name="genlst" ItemsSource="{Binding filesList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                    <ListView.View>
+                                                        <GridView>
+                                                            <GridViewColumn x:Name="gen_col" Width="122" Header="Tên" DisplayMemberBinding="{Binding Name}"></GridViewColumn>
+                                                        </GridView>
+                                                    </ListView.View>
+                                                </ListView>
+                                            </ScrollViewer>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </Grid>
+
+                                <Grid Grid.Column="1" HorizontalAlignment="Stretch">
+                                    <materialDesign:Card VerticalAlignment="Stretch" HorizontalAlignment="Stretch" UniformCornerRadius="10" Margin="5">
+                                        <materialDesign:Card.Background>
+                                            <SolidColorBrush Color="DarkSlateGray" Opacity="0.5"/>
+                                        </materialDesign:Card.Background>
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="auto"/>
+                                                <RowDefinition/>
+                                            </Grid.RowDefinitions>
+                                            <Grid>
+                                                <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                                                    <ToolBar x:Name="Tools" Margin="5 5 5 0" Style="{DynamicResource MaterialDesignToolBar}" ClipToBounds="False">
+                                                        <ComboBox MaxWidth="80" x:Name="cmb2" SelectionChanged="cmb2_SelectionChanged"/>
+                                                        <ComboBox x:Name="cmb" SelectionChanged="ComboBox_SelectionChanged">
+                                                        </ComboBox>
+                                                        <Separator/>
+                                                        <ListBox x:Name="lst_Alg" SelectedIndex="0" SelectionChanged="ListBox_SelectionChanged_1">
+                                                            <ListBoxItem>
+                                                                <materialDesign:PackIcon Kind="FormatAlignLeft" />
+                                                            </ListBoxItem>
+                                                            <ListBoxItem>
+                                                                <materialDesign:PackIcon Kind="FormatAlignCenter" />
+                                                            </ListBoxItem>
+                                                            <ListBoxItem>
+                                                                <materialDesign:PackIcon Kind="FormatAlignRight" />
+                                                            </ListBoxItem>
+                                                            <ListBoxItem>
+                                                                <materialDesign:PackIcon Kind="FormatAlignJustify" />
+                                                            </ListBoxItem>
+                                                        </ListBox>
+                                                        <Separator Margin="0"/>
+                                                        <ListBox x:Name="lst_Fmt" SelectionMode="Extended" SelectionChanged="ListBox_SelectionChanged">
+                                                            <ListBoxItem>
+                                                                <materialDesign:PackIcon Kind="FormatBold"/>
+                                                            </ListBoxItem>
+                                                            <ListBoxItem>
+                                                                <materialDesign:PackIcon Kind="FormatItalic"/>
+                                                            </ListBoxItem>
+                                                            <ListBoxItem>
+                                                                <materialDesign:PackIcon Kind="FormatUnderline"/>
+                                                            </ListBoxItem>
+                                                        </ListBox>
+                                                    </ToolBar>
+                                                </ScrollViewer>
+
+                                            </Grid>
+                                            <RichTextBox Width="{Binding Path=ActualWidth, ElementName=Tools, Mode=OneWay}" VerticalScrollBarVisibility="Auto" AcceptsTab="True" SelectionChanged="mRichTxt_SelectionChanged" x:Name="mRichTxt" Grid.Row="1" Margin="5" VerticalAlignment="Stretch">
+                                            </RichTextBox>
+                                            <Button Click="Button_Click" materialDesign:RippleAssist.Feedback="Black" materialDesign:RippleAssist.IsDisabled="False" Height="50" Width="50" Padding="1" Background="Transparent" BorderBrush="Transparent" Foreground="{StaticResource PrimaryHueDarkBrush}" ToolTip="Lưu" Grid.Row="1" Margin="10" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                <materialDesign:PackIcon Kind="ContentSave" Height="35" Width="35"/>
+                                            </Button>
+                                            <Button Click="Button_Click_2" materialDesign:RippleAssist.Feedback="Black" materialDesign:RippleAssist.IsDisabled="False" Height="50" Width="50" Padding="1" Background="Transparent" BorderBrush="Transparent" Foreground="Red" ToolTip="Xóa" Grid.Row="1" Margin="10,10,10,50" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                                <materialDesign:PackIcon Kind="Delete" Height="35" Width="35"/>
+                                            </Button>
+                                        </Grid>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </Grid>
+                        </materialDesign:DialogHost>
+                    </materialDesign:DialogHost>
+                </materialDesign:DialogHost>
+            </materialDesign:DialogHost>
+        </materialDesign:DialogHost>
+
+    </Grid>
+</Page>

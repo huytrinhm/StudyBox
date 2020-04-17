@@ -1,0 +1,87 @@
+﻿<Window x:Class="StudyBox.Calendar"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudyBox"
+        mc:Ignorable="d"
+        Title="Lịch" Height="500" Width="400"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" BorderThickness="0" WindowStyle="None">
+
+    <Grid Background="LightGray">
+        <StackPanel HorizontalAlignment="Center" Margin="0,50,0,10">
+            <StackPanel Orientation="Horizontal" Margin="5,0,0,9">
+                <TextBlock Margin="3" VerticalAlignment="Center" FontSize="20">Ngày:</TextBlock>
+                <ComboBox x:Name="cmbDate" Margin="3" Width="40" SelectionChanged="cmbDate_SelectionChanged"></ComboBox>
+                <Separator Width="25" Height="2" RenderTransformOrigin="0.5,0.5">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <TextBlock Margin="3" VerticalAlignment="Center" FontSize="20">Tháng:</TextBlock>
+                <ComboBox x:Name="cmbMonth" Margin="3" Width="40" SelectionChanged="cmbMonth_SelectionChanged"></ComboBox>
+                <Separator Width="25" Height="2" RenderTransformOrigin="0.5,0.5">
+                    <Separator.RenderTransform>
+                        <TransformGroup>
+                            <ScaleTransform/>
+                            <SkewTransform/>
+                            <RotateTransform Angle="90"/>
+                            <TranslateTransform/>
+                        </TransformGroup>
+                    </Separator.RenderTransform>
+                </Separator>
+                <TextBlock Margin="3" VerticalAlignment="Center" FontSize="20">Năm:</TextBlock>
+                <ComboBox x:Name="cmbYear" Margin="3" Width="70" SelectionChanged="cmbYear_SelectionChanged"></ComboBox>
+            </StackPanel>
+            <Separator Margin="0,0,0,3" Height="5"></Separator>
+            <Viewbox Width="400" Height="350">
+                <Calendar x:Name="CalMain" SelectedDatesChanged="CalMain_SelectedDatesChanged" Focusable="False" Language="vi" DisplayDateStart="1900-01-01"></Calendar>
+            </Viewbox>
+            <Button x:Name="btnToday" Click="btnToday_Click" HorizontalAlignment="Center" Width="150" Style="{StaticResource MaterialDesignFlatButton}" FontSize="20">Hôm nay</Button>
+        </StackPanel>
+        <materialDesign:DialogHost Identifier="runDialog" x:Name="Dialog" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+            <DockPanel VerticalAlignment="Top" HorizontalAlignment="Right" >
+
+                <Button x:Name="BtnMini"
+                        Margin="5 15" Width="20" Height="20"
+                        Style="{DynamicResource MaterialDesignFloatingActionDarkButton}"
+                        Background="White"
+                        Foreground="{Binding Path=Background, ElementName=rectangle}"
+                        materialDesign:RippleAssist.Feedback="{Binding Path=Background, ElementName=rectangle}"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Click="BtnMini_Click">
+                    <materialDesign:PackIcon
+                        Kind="WindowMinimize"
+                        Width="15" Height="15"
+                        Margin="0 5"/>
+                </Button>
+
+                <Button x:Name="BtnClose"
+                        Margin="5 15" Width="20" Height="20"
+                        Style="{DynamicResource MaterialDesignFloatingActionDarkButton}"
+                        materialDesign:RippleAssist.Feedback="#FFF53B3B"
+                        materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        Background="White" Foreground="#FFF53B3B" BorderBrush="#FFF53B3B" Click="BtnClose_Click">
+                    <materialDesign:PackIcon Kind="WindowClose" Height="15" Width="15"/>
+
+                </Button>
+
+            </DockPanel>
+
+        </materialDesign:DialogHost>
+
+        <Grid x:Name="rectangle" VerticalAlignment="Top" Height="11" MouseDown="rectangle_MouseDown"></Grid>
+        
+    </Grid>
+</Window>

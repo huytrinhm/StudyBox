@@ -1,0 +1,106 @@
+﻿<Page x:Class="StudyBox.Home"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudyBox"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Tiện ích"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto" FontFamily="{DynamicResource MaterialDesignFont}"
+>
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <materialDesign:DialogHost Identifier="hDialog">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="Icons" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <!--Notepad,Paint,Translator,Wiki,Calculator,Calendar-->
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid.Resources>
+                            <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignRaisedLightButton}">
+                                <Setter Property="Width" Value="130"/>
+                                <Setter Property="Height" Value="130"/>
+                                <Setter Property="Background" Value="Transparent"/>
+                                <Setter Property="Margin" Value="5"/>
+                                <Setter Property="BorderBrush" Value="Black"/>
+                            </Style>
+                            <Style TargetType="materialDesign:PackIcon">
+                                <Setter Property="Width" Value="70"/>
+                                <Setter Property="Height" Value="70"/>
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                            <Style TargetType="WrapPanel">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </Grid.Resources>
+                        <WrapPanel Grid.Row="0">
+                            <Button Click="Button_Click_6">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="Notebook"/>
+                                    <TextBlock FontSize="25">Ghi chú</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_1">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="Brush"/>
+                                    <TextBlock FontSize="25">Vẽ</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_4">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="Translate" />
+                                    <TextBlock FontSize="25">Dịch</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </WrapPanel>
+                        <WrapPanel Grid.Row="1">
+                            <Button Click="Button_Click_5">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="Wikipedia"/>
+                                    <TextBlock FontSize="22">Wikipedia</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_3">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="Calculator"/>
+                                    <TextBlock FontSize="25">Máy tính</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click_2">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="CalendarToday" />
+                                    <TextBlock FontSize="25">Lịch</TextBlock>
+                                </StackPanel>
+                            </Button>
+                            <Button Click="Button_Click">
+                                <StackPanel>
+                                    <materialDesign:PackIcon Kind="Plus"/>
+                                    <TextBlock FontSize="25">Thêm</TextBlock>
+                                </StackPanel>
+                            </Button>
+                        </WrapPanel>
+                    </Grid>
+                    <Grid Grid.Row="1">
+                        <Button x:Name="Start" Margin="250,0,250,10" VerticalAlignment="Bottom" Content="Bắt đầu" FontSize="25" Height="50" Click="Start_Click"/>
+                    </Grid>
+                </Grid>
+            </materialDesign:DialogHost>
+        </ScrollViewer>
+    </Grid>
+</Page>

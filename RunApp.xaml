@@ -1,0 +1,110 @@
+﻿<Window x:Class="StudyBox.RunApp"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudyBox"
+        mc:Ignorable="d"
+        Title="Thêm ứng dụng" Height="500" Width="700"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" BorderThickness="0" WindowStyle="None" Loaded="Window_Loaded">
+
+    <materialDesign:DialogHost Identifier="erunDialog" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+        <materialDesign:DialogHost Identifier="runDialog" x:Name="Dialog" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+            <materialDesign:DialogHost Identifier="runDialog2" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+                <materialDesign:DialogHost Identifier="runDialog3" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+                    <Grid Background="LightGray">
+
+                        <Grid Margin="5 45 5 5">
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition Height="auto"></RowDefinition>
+                                    <RowDefinition></RowDefinition>
+                                </Grid.RowDefinitions>
+                                
+                                <materialDesign:Card Grid.Row="0" Margin="5" Background="Transparent">
+                                    <Grid>
+                                        <TextBox x:Name="txtKey" TextChanged="TextBox_TextChanged" HorizontalAlignment="Stretch" Height="45" materialDesign:HintAssist.Hint="Tìm kiếm" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                    </Grid>
+                                </materialDesign:Card>
+                                
+                                <materialDesign:Card Grid.Row="1" Margin="5" Background="Transparent">
+                                    <Grid>
+                                        <Button x:Name="Add" Click="Add_Click" HorizontalAlignment="Left" FontSize="18" Height="32" Content="Thêm" Margin="5" Width="100" Background="DarkBlue"></Button>
+                                        <WrapPanel HorizontalAlignment="Center">
+                                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="45" MaxWidth="175" Width="175" materialDesign:HintAssist.Hint="Tên ứng dụng" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="2"/>
+                                            <TextBox Text="{Binding AppPath, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="45" MaxWidth="200" Width="200" Margin="2" IsReadOnly="True"/>
+                                            <Button FontSize="18" Height="32" Content="Chọn" Width="77" x:Name="Browse" Click="Browse_Click"/>
+                                        </WrapPanel>
+                                        <Button x:Name="Delete" Click="Delete_Click" HorizontalAlignment="Right" FontSize="18" Height="32" Content="Xóa" Margin="5" Width="100" Background="DarkRed"></Button>
+                                    </Grid>
+                                </materialDesign:Card>
+
+                                <materialDesign:Card Grid.Row="2" Margin="5" Background="Transparent" VerticalAlignment="Stretch">
+                                    <Grid>
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <ScrollViewer.Resources>
+                                                <Style x:Key="dbc" TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignGridViewItem}">
+                                                    <EventSetter Event="MouseDoubleClick" Handler="HandleDoubleClick" />
+                                                </Style>
+                                            </ScrollViewer.Resources>
+                                            <ListView ItemContainerStyle="{StaticResource dbc}" x:Name="MainList" ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Width="200" Header="Tên ứng dụng" DisplayMemberBinding="{Binding DisplayName}"></GridViewColumn>
+                                                        <GridViewColumn Width="400" Header="Đường dẫn" DisplayMemberBinding="{Binding AppPath}"></GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </ScrollViewer>
+                                    </Grid>
+                                </materialDesign:Card>
+                            </Grid>
+                        </Grid>
+
+
+                        <DockPanel VerticalAlignment="Top" HorizontalAlignment="Right" >
+
+                            <Button x:Name="BtnMini"
+                        Margin="5 15" Width="20" Height="20"
+                        Style="{DynamicResource MaterialDesignFloatingActionDarkButton}"
+                        Background="White"
+                        Foreground="{Binding Path=Background, ElementName=rectangle}"
+                        materialDesign:RippleAssist.Feedback="{Binding Path=Background, ElementName=rectangle}"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Click="BtnMini_Click">
+                                <materialDesign:PackIcon
+                        Kind="WindowMinimize"
+                        Width="15" Height="15"
+                        Margin="0 5"/>
+                            </Button>
+
+                            <Button x:Name="BtnClose"
+                        Margin="5 15" Width="20" Height="20"
+                        Style="{DynamicResource MaterialDesignFloatingActionDarkButton}"
+                        materialDesign:RippleAssist.Feedback="#FFF53B3B"
+                        materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        Background="White" Foreground="#FFF53B3B" BorderBrush="#FFF53B3B" Click="BtnClose_Click">
+                                <materialDesign:PackIcon Kind="WindowClose" Height="15" Width="15"/>
+
+                            </Button>
+
+                        </DockPanel>
+
+
+                        <Grid x:Name="rectangle" VerticalAlignment="Top" Height="11" MouseDown="rectangle_MouseDown"></Grid>
+
+                    </Grid>
+                </materialDesign:DialogHost>
+            </materialDesign:DialogHost>
+        </materialDesign:DialogHost>
+    </materialDesign:DialogHost>
+</Window>

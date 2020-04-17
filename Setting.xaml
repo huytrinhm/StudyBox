@@ -1,0 +1,153 @@
+﻿<Page x:Class="StudyBox.Setting"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudyBox"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Cài đặt"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto" FontFamily="{DynamicResource MaterialDesignFont}">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <materialDesign:DialogHost Identifier="Set">
+                <materialDesign:DialogHost>
+                    <StackPanel x:Name="sMain">
+                        <Expander FontSize="20" Margin="2 5">
+                            <Expander.Background>
+                                <SolidColorBrush Color="DarkGray" Opacity="50"/>
+                            </Expander.Background>
+                            <Expander.Header>
+                                <TextBlock FontSize="25">Màu sắc</TextBlock>
+                            </Expander.Header>
+                            <WrapPanel Orientation="Horizontal">
+                                <Button Width="20" Height="20" Margin="10" Background="#FF453CF5" Click="Button_Click" BorderBrush="#FF453CF5"></Button>
+                                <Button Width="20" Height="20" Margin="10" Background="#FF0A141E" Click="Button_Click" BorderBrush="#FF0A141E"></Button>
+                                <Button Width="20" Height="20" Margin="10" Click="Button_Click" Background="#FF13852F" BorderBrush="#FF13852F"></Button>
+                                <Button x:Name="t" Width="20" Height="20" Margin="10" Click="Button_Click" Background="#FFAF9B28" BorderBrush="#FFAE9B27"></Button>
+                                <Button x:Name="more" Width="22" Height="22" Margin="10" Background="LightGray" BorderBrush="LightGray" Style="{DynamicResource MaterialDesignFloatingActionButton}" Foreground="{Binding aColor}" Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}">
+                                    <Button.CommandParameter>
+                                        <StackPanel>
+                                            <TextBlock Text="Nhập mã màu (Hex) vào đây:" Margin="5"/>
+                                            <TextBox x:Name="txtC" Margin="5"/>
+                                            <StackPanel Orientation="Horizontal" Margin="5" Width="200">
+                                                <Button Content="Ok" Style="{DynamicResource MaterialDesignFlatButton}" Click="Button_Click_1" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Width="95" Margin="2"/>
+                                                <Button Content="Hủy" Style="{DynamicResource MaterialDesignFlatButton}" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}" Width="95" Margin="2"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Button.CommandParameter>
+                                    <materialDesign:PackIcon Kind="DotsHorizontal"/>
+                                </Button>
+                            </WrapPanel>
+                        </Expander>
+                        <Separator Background="Black" Foreground="Black" Margin="2"/>
+                        <Expander FontSize="20" Margin="2 5">
+                            <Expander.Background>
+                                <SolidColorBrush Color="DarkGray" Opacity="50"/>
+                            </Expander.Background>
+                            <Expander.Header>
+                                <TextBlock FontSize="25">Chặn ứng dụng</TextBlock>
+                            </Expander.Header>
+                            <Grid>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <materialDesign:Card Grid.Row="0" Margin="5" Background="Transparent">
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBox Text="{Binding DisplayName, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="32" IsReadOnly="True" MaxWidth="600" Width="520"/>
+                                            <Separator Margin="5 0" Width="25" Height="10" Background="Black" Foreground="Black" RenderTransformOrigin="0.5,0.5">
+                                                <Separator.RenderTransform>
+                                                    <TransformGroup>
+                                                        <ScaleTransform/>
+                                                        <SkewTransform/>
+                                                        <RotateTransform Angle="90"/>
+                                                        <TranslateTransform/>
+                                                    </TransformGroup>
+                                                </Separator.RenderTransform>
+                                            </Separator>
+                                            <Button FontSize="18" Height="32" Content="Chọn" Width="100" x:Name="Browse" Click="Browse_Click"/>
+                                        </StackPanel>
+                                    </materialDesign:Card>
+
+                                    <materialDesign:Card Grid.Row="1" Margin="5" Background="Transparent">
+                                        <Grid>
+                                            <Button x:Name="Add" Click="Add_Click" HorizontalAlignment="Left" FontSize="18" Height="32" Content="Thêm" Margin="5" Width="150" Background="DarkBlue"></Button>
+                                            <Button x:Name="Delete" Click="Delete_Click" HorizontalAlignment="Right" FontSize="18" Height="32" Content="Xóa" Margin="5" Width="150" Background="DarkRed"></Button>
+                                        </Grid>
+                                    </materialDesign:Card>
+
+                                    <materialDesign:Card Grid.Row="2" Margin="5" Background="Transparent" VerticalAlignment="Stretch">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <ListView ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Width="600" Header="Ứng dụng"></GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </ScrollViewer>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </Grid>
+                        </Expander>
+                        <Separator Background="Black" Foreground="Black" Margin="2"/>
+                        <Expander FontSize="20" Margin="2 5">
+                            <Expander.Background>
+                                <SolidColorBrush Color="DarkGray" Opacity="50"/>
+                            </Expander.Background>
+                            <Expander.Header>
+                                <TextBlock FontSize="25">Chặn trang web</TextBlock>
+                            </Expander.Header>
+                            <Grid>
+
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition Height="auto"></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+
+                                    <materialDesign:Card Grid.Row="0" Margin="5" Background="Transparent">
+                                        <StackPanel Orientation="Horizontal" Margin="5">
+                                            <TextBox Text="{Binding DisplayName2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="45" MaxWidth="650" Width="600" materialDesign:HintAssist.Hint="Trang web" Style="{StaticResource MaterialDesignFloatingHintTextBox}"/>
+                                        </StackPanel>
+                                    </materialDesign:Card>
+
+                                    <materialDesign:Card Grid.Row="1" Margin="5" Background="Transparent">
+                                        <Grid>
+                                            <Button x:Name="Add2" Click="Add2_Click" HorizontalAlignment="Left" FontSize="18" Height="32" Content="Thêm" Margin="5" Width="150" Background="DarkBlue"></Button>
+                                            <Button x:Name="Delete2" Click="Delete2_Click" HorizontalAlignment="Right" FontSize="18" Height="32" Content="Xóa" Margin="5" Width="150" Background="DarkRed"></Button>
+                                        </Grid>
+                                    </materialDesign:Card>
+
+                                    <materialDesign:Card Grid.Row="2" Margin="5" Background="Transparent" VerticalAlignment="Stretch">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <ListView ItemsSource="{Binding List2, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem2, Mode=TwoWay}">
+                                                <ListView.View>
+                                                    <GridView>
+                                                        <GridViewColumn Width="600" Header="Trang web"></GridViewColumn>
+                                                    </GridView>
+                                                </ListView.View>
+                                            </ListView>
+                                        </ScrollViewer>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </Grid>
+                        </Expander>
+                    </StackPanel>
+                </materialDesign:DialogHost>
+            </materialDesign:DialogHost>
+        </ScrollViewer>
+    </Grid>
+
+</Page>

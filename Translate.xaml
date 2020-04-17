@@ -1,0 +1,65 @@
+﻿<Window x:Class="StudyBox.Translate"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StudyBox"
+        mc:Ignorable="d"
+        Title="Dịch" Height="500" Width="745"
+        xmlns:cef="clr-namespace:CefSharp.Wpf;assembly=CefSharp.Wpf"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        FontFamily="{DynamicResource MaterialDesignFont}" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" BorderThickness="0" WindowStyle="None">
+
+    <Grid Background="LightGray">
+        <StackPanel Margin="0,50,0,10">
+            <Grid>
+                <ComboBox x:Name="cmbInp" Width="200" HorizontalAlignment="Left" Margin="60,0"/>
+                <ComboBox x:Name="cmbOut" Width="200" HorizontalAlignment="Right" Margin="60,0"/>
+            </Grid>
+            <StackPanel Orientation="Horizontal">
+                <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" x:Name="Inp" Margin="30" Style="{StaticResource MaterialDesignTextAreaTextBox}" materialDesign:HintAssist.Hint="Nhập vào đây" Width="250" Height="350"/>
+                <Button IsDefault="True" Click="Button_Click" Content="Dịch ->" Margin="10" Width="100"/>
+                <TextBox ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="WrapWithOverflow" x:Name="txt" Margin="30" Style="{StaticResource MaterialDesignTextAreaTextBox}" Width="250" Height="350" IsReadOnly="True"/>
+            </StackPanel>
+        </StackPanel>
+        <cef:ChromiumWebBrowser IsEnabled="False" Focusable="False" Opacity="0" VerticalAlignment="Bottom" x:Name="bMain" Width="1" Height="1" Address="https://translate.google.com/m?&amp;sl=auto&amp;tl=vi&amp;ie=UTF-8&amp;prev=_m" Loaded="bMain_Loaded" FrameLoadEnd="bMain_FrameLoadEnd" LoadingStateChanged="bMain_LoadingStateChanged"></cef:ChromiumWebBrowser>
+        <materialDesign:DialogHost Identifier="runDialog" x:Name="Dialog" materialDesign:ShadowAssist.ShadowDepth="Depth0">
+
+            <DockPanel VerticalAlignment="Top" HorizontalAlignment="Right" >
+
+                <Button x:Name="BtnMini"
+                        Margin="5 15" Width="20" Height="20"
+                        Style="{DynamicResource MaterialDesignFloatingActionDarkButton}"
+                        Background="White"
+                        Foreground="{Binding Path=Background, ElementName=rectangle}"
+                        materialDesign:RippleAssist.Feedback="{Binding Path=Background, ElementName=rectangle}"
+                        materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" Click="BtnMini_Click">
+                    <materialDesign:PackIcon
+                        Kind="WindowMinimize"
+                        Width="15" Height="15"
+                        Margin="0 5"/>
+                </Button>
+
+                <Button x:Name="BtnClose"
+                        Margin="5 15" Width="20" Height="20"
+                        Style="{DynamicResource MaterialDesignFloatingActionDarkButton}"
+                        materialDesign:RippleAssist.Feedback="#FFF53B3B"
+                        materialDesign:ShadowAssist.ShadowEdges="Bottom,Left" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                        Background="White" Foreground="#FFF53B3B" BorderBrush="#FFF53B3B" Click="BtnClose_Click">
+                    <materialDesign:PackIcon Kind="WindowClose" Height="15" Width="15"/>
+
+                </Button>
+
+            </DockPanel>
+
+        </materialDesign:DialogHost>
+
+        <Grid x:Name="rectangle" VerticalAlignment="Top" Height="11" MouseDown="rectangle_MouseDown"></Grid>
+
+    </Grid>
+</Window>

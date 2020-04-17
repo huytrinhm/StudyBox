@@ -1,0 +1,121 @@
+﻿<Page x:Class="StudyBox.Goal"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:StudyBox"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Thời khóa biểu"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+      TextElement.FontWeight="Regular"
+      TextElement.FontSize="13"
+      TextOptions.TextFormattingMode="Ideal"
+      TextOptions.TextRenderingMode="Auto" FontFamily="{DynamicResource MaterialDesignFont}">
+
+
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <materialDesign:DialogHost Identifier="Set">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        
+                        <ListBox x:Name="mListBox" SelectionChanged="ListBox_SelectionChanged" SelectionMode="Single" HorizontalAlignment="Stretch" Margin="5" Style="{StaticResource MaterialDesignListBox}" SelectedIndex="0">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignToolToggleListBoxItem}">
+                                    <Setter Property="Margin" Value="1"/>
+                                    <Setter Property="Background" Value="DarkBlue"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                    </Grid>
+                                </ItemsPanelTemplate>
+                            </ListBox.ItemsPanel>
+                            <ListBoxItem Grid.Column="0" materialDesign:RippleAssist.Feedback="White">
+                                Thứ hai
+                            </ListBoxItem>
+                            <ListBoxItem Grid.Column="1" materialDesign:RippleAssist.Feedback="White">
+                                Thứ ba
+                            </ListBoxItem>
+                            <ListBoxItem Grid.Column="2" materialDesign:RippleAssist.Feedback="White">
+                               Thứ tư 
+                            </ListBoxItem>
+                            <ListBoxItem Grid.Column="3" materialDesign:RippleAssist.Feedback="White">
+                                Thứ năm
+                            </ListBoxItem>
+                            <ListBoxItem Grid.Column="4" materialDesign:RippleAssist.Feedback="White">
+                                Thứ sáu
+                            </ListBoxItem>
+                            <ListBoxItem Grid.Column="5" Background="DarkGreen" materialDesign:RippleAssist.Feedback="White">
+                                Thứ bảy
+                            </ListBoxItem>
+                            <ListBoxItem Grid.Column="6" Background="DarkRed" materialDesign:RippleAssist.Feedback="White">
+                                Chủ nhật
+                            </ListBoxItem>
+                        </ListBox>
+                    </Grid>
+                    <Separator Grid.Row="1" Margin="10 0"/>
+                    <Grid Grid.Row="2">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ListView x:Name="mList" SelectedItem="{Binding SelectedItem, Mode=TwoWay}" ItemsSource="{Binding List, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="5">
+                                <ListView.View>
+                                    <GridView>
+                                        <GridViewColumn Width="{Binding ElementName=ContentW, Path=ActualWidth}" Header="Nội dung" DisplayMemberBinding="{Binding Content}"/>
+                                        <GridViewColumn Width="{Binding ElementName=colTime, Path=ActualWidth}" Header="Thời gian bắt đầu" DisplayMemberBinding="{Binding StartText}"/>
+                                        <GridViewColumn Width="{Binding ElementName=colTime, Path=ActualWidth}" Header="Thời gian kết thúc" DisplayMemberBinding="{Binding EndText}"/>
+                                    </GridView>
+                                </ListView.View>
+                            </ListView>
+                        </ScrollViewer>
+                        <Grid Visibility="Hidden">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Grid.ColumnSpan="2" x:Name="ContentW"/>
+                            <Grid  Grid.Column="1" x:Name="colTime"/>
+                        </Grid>
+                    </Grid>
+                    <Grid Grid.Row="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <Button Grid.Column="0" x:Name="Add" Click="Add_Click" FontSize="18" Height="32" Content="Thêm" Margin="5" Width="100" Background="DarkBlue"/>
+                        <TextBox Grid.Column="1" Text="{Binding mContent, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="45" MaxWidth="175" Width="175" materialDesign:HintAssist.Hint="Nội dung" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" VerticalAlignment="Center"/>
+                        <materialDesign:TimePicker x:Name="sPick" Grid.Column="2" SelectedTime="{Binding StartTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="45" MaxWidth="175" Width="175" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" materialDesign:HintAssist.Hint="Bắt đầu" Margin="5" VerticalAlignment="Center"/>
+                        <materialDesign:TimePicker x:Name="ePick" Grid.Column="3" SelectedTime="{Binding EndTime, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Height="45" MaxWidth="175" Width="175" Style="{StaticResource MaterialDesignFloatingHintTimePicker}" materialDesign:HintAssist.Hint="Kết thúc" Margin="5" VerticalAlignment="Center"/>
+                        <Button Grid.Column="4" x:Name="Delete" Click="Delete_Click" FontSize="18" Height="32" Content="Xóa" Margin="5" Width="100" Background="DarkRed"/>
+                    </Grid>
+                </Grid>
+            </materialDesign:DialogHost>
+        </ScrollViewer>
+    </Grid>
+</Page>
